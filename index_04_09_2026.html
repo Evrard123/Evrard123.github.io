@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Evrard DEDO — Digital Project Manager · Systèmes d'Information</title>
+<meta name="description" content="Portfolio d'Evrard DEDO — futur Digital Project Manager. Master Systèmes d'Information & Innovation Numérique à l'IAE Savoie Mont Blanc. 3 ans d'expérience télécom chez Huawei, gestion de projet, développement web et data." />
+<meta name="author" content="Evrard DEDO" />
+
+<!-- ============================================================= -->
+<!--  POLICES  (modifiables : remplace les noms ci-dessous)        -->
+<!--  Sora = titres · Inter = texte · JetBrains Mono = données     -->
+<!-- ============================================================= -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================= */
+/*  1. VARIABLES & THÈME                                         */
+/*  → Change les couleurs ICI pour reskinner tout le site        */
+/* ============================================================= */
+:root{
+  /* — Accents (identiques aux 2 thèmes) — */
+  --signal:    #2ED3F0;   /* cyan : ton univers réseau / tech     */
+  --signal-2:  #4F8DFF;   /* bleu : dégradés                      */
+  --human:     #FFB454;   /* ambre : leadership / management      */
+  --good:      #36E0A0;   /* vert : statut « disponible »         */
+
+  /* — Hauteurs / rayons / ombres — */
+  --r:   14px;
+  --r-sm: 9px;
+  --r-lg: 22px;
+  --maxw: 1140px;
+
+  --font-display:'Sora', sans-serif;
+  --font-body:'Inter', sans-serif;
+  --font-mono:'JetBrains Mono', monospace;
+}
+
+/* —— THÈME SOMBRE (par défaut) —— */
+[data-theme="dark"]{
+  --bg:        #080B14;
+  --bg-soft:   #0C1120;
+  --panel:     #111829;
+  --panel-2:   #161F36;
+  --line:      #233048;
+  --line-soft: #1A2438;
+  --text:      #EAF1FC;
+  --text-soft: #B6C3DC;
+  --muted:     #7E8DA8;
+  --shadow:    0 24px 60px rgba(0,0,0,.45);
+  --glow:      0 0 0 1px rgba(46,211,240,.18), 0 18px 50px rgba(46,211,240,.10);
+  --grid-dot:  rgba(255,255,255,.035);
+}
+
+/* —— THÈME CLAIR —— */
+[data-theme="light"]{
+  --bg:        #EEF3FB;
+  --bg-soft:   #FFFFFF;
+  --panel:     #FFFFFF;
+  --panel-2:   #F3F7FD;
+  --line:      #DCE5F2;
+  --line-soft: #E7EEF8;
+  --text:      #0E1A2E;
+  --text-soft: #36465F;
+  --muted:     #64748B;
+  --shadow:    0 20px 50px rgba(20,40,80,.10);
+  --glow:      0 0 0 1px rgba(14,165,196,.18), 0 16px 44px rgba(14,165,196,.10);
+  --grid-dot:  rgba(20,40,80,.05);
+  --signal:    #0FA9C6;
+  --signal-2:  #2563EB;
+  --human:     #D9810B;
+}
+
+/* ============================================================= */
+/*  2. RESET & BASE                                              */
+/* ============================================================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.65;
+  font-size:16px;
+  overflow-x:hidden;
+  transition:background .4s ease, color .4s ease;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+::selection{background:var(--signal);color:#04121a}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
+section{padding:96px 0;position:relative}
+
+/* Barre de progression de lecture */
+#progress{
+  position:fixed;top:0;left:0;height:3px;width:0;z-index:200;
+  background:linear-gradient(90deg,var(--signal),var(--signal-2));
+  box-shadow:0 0 12px var(--signal);
+}
+
+/* ============================================================= */
+/*  3. NAVIGATION                                               */
+/* ============================================================= */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:150;
+  background:color-mix(in srgb,var(--bg) 80%,transparent);
+  backdrop-filter:blur(16px) saturate(140%);
+  border-bottom:1px solid var(--line-soft);
+}
+.nav-in{display:flex;align-items:center;justify-content:space-between;
+  max-width:var(--maxw);margin:0 auto;padding:0 26px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);
+  font-weight:700;font-size:1.05rem;letter-spacing:-.02em}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--good);
+  box-shadow:0 0 10px var(--good);animation:blink 2.4s infinite}
+.brand b{color:var(--signal)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.45}}
+
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a{font-size:.86rem;font-weight:500;color:var(--text-soft);
+  letter-spacing:.01em;transition:color .2s;position:relative}
+.nav-links a:hover,.nav-links a.active{color:var(--signal)}
+.nav-links a.active::after{content:'';position:absolute;left:0;right:0;bottom:-22px;
+  height:2px;background:var(--signal)}
+
+.nav-tools{display:flex;align-items:center;gap:14px}
+.toggle{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);
+  background:var(--panel);color:var(--text-soft);cursor:pointer;font-size:1rem;
+  display:grid;place-items:center;transition:all .2s}
+.toggle:hover{color:var(--signal);border-color:var(--signal)}
+#langBtn{width:auto;min-width:38px;padding:0 10px;font-family:var(--font-mono);
+  font-size:.78rem;font-weight:700;letter-spacing:.03em}
+.cta-nav{background:var(--signal);color:#04121a;padding:9px 18px;border-radius:10px;
+  font-weight:600;font-size:.86rem;transition:all .2s;white-space:nowrap}
+.cta-nav:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(46,211,240,.3)}
+
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+.burger span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:.3s}
+
+#mobnav{position:fixed;inset:64px 0 auto 0;z-index:140;
+  background:color-mix(in srgb,var(--bg) 96%,transparent);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);padding:18px 26px;
+  display:none;flex-direction:column;gap:6px}
+#mobnav.open{display:flex}
+#mobnav a{padding:11px 0;font-weight:500;color:var(--text-soft);
+  border-bottom:1px solid var(--line-soft)}
+
+/* ============================================================= */
+/*  4. HÉRO  (toujours sombre = « centre de supervision »)      */
+/* ============================================================= */
+#hero{
+  --bg:#080B14;--panel:#111829;--line:#243048;--text:#EAF1FC;
+  --text-soft:#B6C3DC;--muted:#7E8DA8;
+  background:radial-gradient(120% 90% at 80% -10%,#0E1E3A 0%,#080B14 55%);
+  color:var(--text);
+  min-height:100vh;display:flex;align-items:center;padding-top:64px;
+  position:relative;overflow:hidden;
+}
+/* Grille « oscilloscope » en fond */
+#hero::before{content:'';position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:30px 30px;-webkit-mask-image:radial-gradient(80% 80% at 70% 30%,#000,transparent);
+  mask-image:radial-gradient(80% 80% at 70% 30%,#000,transparent);pointer-events:none}
+
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center;
+  position:relative;z-index:2;width:100%}
+
+.status{display:inline-flex;align-items:center;gap:9px;
+  background:rgba(54,224,160,.10);border:1px solid rgba(54,224,160,.28);
+  color:var(--good);padding:6px 15px;border-radius:100px;
+  font-family:var(--font-mono);font-size:.74rem;font-weight:500;letter-spacing:.05em;
+  text-transform:uppercase;margin-bottom:24px}
+.status .pulse{width:8px;height:8px;border-radius:50%;background:var(--good);
+  box-shadow:0 0 0 0 rgba(54,224,160,.5);animation:ring 2s infinite}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(54,224,160,.45)}
+  70%{box-shadow:0 0 0 9px rgba(54,224,160,0)}100%{box-shadow:0 0 0 0 rgba(54,224,160,0)}}
+
+.hero-name{font-family:var(--font-display);font-weight:800;
+  font-size:clamp(2.6rem,5.4vw,4.3rem);line-height:1.04;letter-spacing:-.035em;
+  margin-bottom:14px}
+.hero-name em{font-style:normal;background:linear-gradient(120deg,var(--signal),var(--signal-2));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-role{font-family:var(--font-mono);font-size:clamp(.82rem,1.5vw,.98rem);
+  color:var(--text-soft);letter-spacing:.02em;margin-bottom:26px}
+.hero-role span{color:var(--signal)}
+.hero-tag{font-size:1.05rem;color:var(--text-soft);max-width:520px;line-height:1.75;
+  margin-bottom:34px;padding-left:18px;border-left:2px solid var(--signal)}
+
+.hero-actions{display:flex;gap:13px;flex-wrap:wrap;margin-bottom:38px}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:11px;
+  font-weight:600;font-size:.9rem;cursor:pointer;border:none;transition:all .2s;font-family:var(--font-body)}
+.btn-primary{background:var(--signal);color:#04121a}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(46,211,240,.35)}
+#hero .btn-ghost{background:transparent;color:var(--text);border:1.5px solid rgba(255,255,255,.22)}
+#hero .btn-ghost:hover{border-color:var(--signal);color:var(--signal);transform:translateY(-2px)}
+
+/* Tuiles « télémétrie » (stats) */
+.telemetry{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:560px}
+.tile{background:rgba(255,255,255,.025);border:1px solid var(--line);border-radius:var(--r);
+  padding:15px 14px;position:relative;overflow:hidden}
+.tile::after{content:'';position:absolute;top:0;left:0;width:100%;height:2px;
+  background:linear-gradient(90deg,var(--signal),transparent)}
+.tile .v{font-family:var(--font-mono);font-size:1.5rem;font-weight:600;color:var(--signal);line-height:1}
+.tile .l{font-size:.7rem;color:var(--muted);margin-top:7px;line-height:1.35}
+
+/* —— Console réseau (panneau de droite) —— */
+.console{background:linear-gradient(180deg,#0D1426,#0A0F1E);
+  border:1px solid var(--line);border-radius:var(--r-lg);
+  box-shadow:var(--shadow);overflow:hidden}
+.console-bar{display:flex;align-items:center;justify-content:space-between;
+  padding:11px 16px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.015)}
+.console-bar .dots{display:flex;gap:7px}
+.console-bar .dots i{width:11px;height:11px;border-radius:50%;display:block}
+.console-bar .dots i:nth-child(1){background:#FF5F57}
+.console-bar .dots i:nth-child(2){background:#FEBC2E}
+.console-bar .dots i:nth-child(3){background:#28C840}
+.console-bar .label{font-family:var(--font-mono);font-size:.72rem;color:var(--muted)}
+.console-bar .clock{font-family:var(--font-mono);font-size:.72rem;color:var(--signal)}
+.console-body{padding:6px}
+.console-foot{display:flex;align-items:center;justify-content:space-between;
+  padding:12px 18px;border-top:1px solid var(--line);
+  font-family:var(--font-mono);font-size:.68rem;color:var(--muted)}
+.console-foot b{color:var(--good)}
+
+/* SVG réseau de compétences */
+.netsvg{width:100%;height:auto;display:block}
+.edge{stroke:rgba(46,211,240,.16);stroke-width:1.4;fill:none}
+.flow{stroke:var(--signal);stroke-width:1.8;fill:none;stroke-linecap:round;
+  stroke-dasharray:2 13;animation:flow linear infinite}
+@keyframes flow{to{stroke-dashoffset:-15}}
+.node circle{fill:#0E1730;stroke:rgba(46,211,240,.5);stroke-width:1.4}
+.node.core circle{fill:url(#coreGrad);stroke:none}
+.node .ping{fill:none;stroke:var(--signal);stroke-width:1.4;opacity:0;
+  transform-origin:center;animation:ping 3s ease-out infinite}
+@keyframes ping{0%{opacity:.6;transform:scale(.6)}80%,100%{opacity:0;transform:scale(1.8)}}
+.node text{font-family:var(--font-mono);font-size:12px;fill:var(--text-soft);font-weight:500}
+.node .core-t{font-family:var(--font-display);font-size:18px;font-weight:700;fill:#04121a}
+
+/* ============================================================= */
+/*  5. TITRES DE SECTION                                        */
+/* ============================================================= */
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-mono);
+  font-size:.74rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--signal);margin-bottom:14px}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--signal)}
+.s-title{font-family:var(--font-display);font-weight:700;
+  font-size:clamp(1.8rem,3.2vw,2.5rem);letter-spacing:-.025em;line-height:1.15;
+  margin-bottom:16px;max-width:720px}
+.s-sub{color:var(--muted);font-size:1.02rem;max-width:560px;margin-bottom:52px}
+
+/* ============================================================= */
+/*  6. À PROPOS                                                 */
+/* ============================================================= */
+#about{background:var(--bg-soft)}
+.about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:50px;align-items:start}
+.about-txt p{color:var(--text-soft);margin-bottom:17px;line-height:1.8}
+.about-txt strong{color:var(--text);font-weight:600}
+
+/* Carte « profil système » : la dualité tech ⇄ management */
+.duality{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:8px;box-shadow:var(--shadow)}
+.duality-head{display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px 12px;font-family:var(--font-mono);font-size:.72rem;color:var(--muted)}
+.dual-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;
+  padding:16px 18px;border-top:1px solid var(--line-soft)}
+.dual-side{display:flex;flex-direction:column;gap:3px}
+.dual-side .t{font-weight:600;font-size:.92rem;color:var(--text)}
+.dual-side .d{font-size:.74rem;color:var(--muted)}
+.dual-side.tech .t{color:var(--signal)}
+.dual-side.mgmt{text-align:right}
+.dual-side.mgmt .t{color:var(--human)}
+.dual-link{width:34px;height:1px;background:linear-gradient(90deg,var(--signal),var(--human));
+  position:relative}
+.dual-link::after{content:'';position:absolute;top:-3px;left:50%;transform:translateX(-50%);
+  width:7px;height:7px;border-radius:50%;background:var(--text);
+  box-shadow:0 0 8px var(--signal)}
+
+/* ============================================================= */
+/*  7. COMPÉTENCES  (barres « intensité de signal »)           */
+/* ============================================================= */
+#skills{background:var(--bg)}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:30px}
+@media(max-width:860px){.skills-grid{grid-template-columns:1fr}}
+
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);
+  overflow:hidden;box-shadow:var(--shadow)}
+.panel-head{display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px;border-bottom:1px solid var(--line-soft)}
+.panel-head h3{font-family:var(--font-display);font-size:.98rem;font-weight:600;
+  display:flex;align-items:center;gap:10px}
+.panel-head .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;
+  background:color-mix(in srgb,var(--signal) 14%,transparent);font-size:.95rem}
+.panel-head .tag{font-family:var(--font-mono);font-size:.68rem;color:var(--muted)}
+.panel-body{padding:18px 20px}
+
+.sig-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:14px;
+  padding:11px 0;border-bottom:1px solid var(--line-soft)}
+.sig-row:last-child{border-bottom:none}
+.sig-name{font-size:.9rem;font-weight:500;color:var(--text-soft)}
+.sig-name small{display:block;font-size:.72rem;color:var(--muted);font-weight:400;margin-top:2px}
+.bars{display:flex;align-items:flex-end;gap:4px;height:26px}
+.bars i{width:7px;border-radius:2px;background:var(--line);transition:.3s}
+.bars i:nth-child(1){height:34%}.bars i:nth-child(2){height:52%}
+.bars i:nth-child(3){height:70%}.bars i:nth-child(4){height:86%}
+.bars i:nth-child(5){height:100%}
+.bars[data-level="3"] i:nth-child(-n+3),
+.bars[data-level="4"] i:nth-child(-n+4),
+.bars[data-level="5"] i:nth-child(-n+5){
+  background:linear-gradient(180deg,var(--signal),var(--signal-2));
+  box-shadow:0 0 8px rgba(46,211,240,.4)}
+
+/* Stack technique */
+.stack{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:26px;box-shadow:var(--shadow)}
+.stack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px}
+.stack-col h4{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--signal);margin-bottom:13px;
+  padding-bottom:8px;border-bottom:1px solid var(--line-soft)}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{background:var(--panel-2);border:1px solid var(--line);color:var(--text-soft);
+  font-size:.78rem;font-weight:500;padding:5px 11px;border-radius:8px;
+  font-family:var(--font-mono);transition:.2s}
+.chip:hover{border-color:var(--signal);color:var(--signal)}
+
+/* ============================================================= */
+/*  8. EXPÉRIENCES  (journal d'événements)                     */
+/* ============================================================= */
+#xp{background:var(--bg-soft)}
+.log{position:relative;padding-left:32px}
+.log::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;
+  background:linear-gradient(180deg,var(--signal),var(--signal-2) 40%,transparent)}
+.entry{position:relative;margin-bottom:34px}
+.entry::before{content:'';position:absolute;left:-32px;top:7px;width:16px;height:16px;
+  border-radius:50%;background:var(--bg-soft);border:2px solid var(--line);box-sizing:border-box}
+.entry.key::before{border-color:var(--signal);background:var(--signal);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--signal) 20%,transparent)}
+.entry-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.ts{font-family:var(--font-mono);font-size:.74rem;color:var(--signal);
+  background:color-mix(in srgb,var(--signal) 10%,transparent);
+  padding:3px 10px;border-radius:7px;white-space:nowrap}
+.entry.key .badge-key{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--human);border:1px solid color-mix(in srgb,var(--human) 40%,transparent);
+  padding:2px 8px;border-radius:6px}
+.entry h3{font-family:var(--font-display);font-size:1.08rem;font-weight:600;margin-bottom:3px}
+.entry .org{font-size:.88rem;color:var(--muted);margin-bottom:11px}
+.entry ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+.entry li{font-size:.9rem;color:var(--text-soft);padding-left:18px;position:relative;line-height:1.6}
+.entry li::before{content:'▸';position:absolute;left:0;color:var(--signal);font-size:.78rem;top:2px}
+.entry-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.xtag{font-family:var(--font-mono);font-size:.68rem;color:var(--muted);
+  background:var(--panel);border:1px solid var(--line-soft);padding:3px 9px;border-radius:6px}
+
+/* ============================================================= */
+/*  9. FORMATION                                               */
+/* ============================================================= */
+#edu{background:var(--bg)}
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px}
+.edu-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+  padding:24px;position:relative;overflow:hidden;transition:.25s}
+.edu-card:hover{transform:translateY(-4px);box-shadow:var(--glow);border-color:color-mix(in srgb,var(--signal) 40%,var(--line))}
+.edu-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--signal),var(--signal-2))}
+.edu-card.flag::before{width:4px;background:linear-gradient(180deg,var(--human),#FF8A3D)}
+.edu-when{font-family:var(--font-mono);font-size:.72rem;color:var(--signal);margin-bottom:10px}
+.edu-card.flag .edu-when{color:var(--human)}
+.edu-deg{font-family:var(--font-display);font-size:1rem;font-weight:600;line-height:1.35;margin-bottom:6px}
+.edu-school{font-size:.86rem;color:var(--muted)}
+
+/* ============================================================= */
+/*  10. CERTIFICATIONS                                         */
+/* ============================================================= */
+#certs{background:var(--bg-soft)}
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.cert{display:flex;align-items:center;gap:13px;background:var(--panel);
+  border:1px solid var(--line);border-radius:var(--r);padding:15px 16px;transition:.2s}
+.cert:hover{border-color:color-mix(in srgb,var(--signal) 45%,var(--line));transform:translateY(-3px)}
+.cert .ci{width:38px;height:38px;flex-shrink:0;border-radius:9px;display:grid;place-items:center;
+  font-size:1.05rem;background:linear-gradient(135deg,var(--signal),var(--signal-2));color:#04121a}
+.cert .ct{font-size:.84rem;font-weight:500;line-height:1.3}
+.cert .co{font-family:var(--font-mono);font-size:.7rem;color:var(--muted);margin-top:3px}
+
+/* ============================================================= */
+/*  11. CONTACT                                                */
+/* ============================================================= */
+#contact{--bg:#080B14;--panel:#111829;--line:#243048;--text:#EAF1FC;
+  --text-soft:#B6C3DC;--muted:#7E8DA8;
+  background:radial-gradient(120% 100% at 20% 0%,#0E1E3A 0%,#080B14 60%);color:var(--text)}
+.contact-grid{display:grid;grid-template-columns:1fr;max-width:640px}
+#contact .eyebrow,#contact .eyebrow::before{color:var(--signal)}
+#contact .eyebrow::before{background:var(--signal)}
+.clinks{display:flex;flex-direction:column;gap:12px}
+.clink{display:flex;align-items:center;gap:15px;background:rgba(255,255,255,.025);
+  border:1px solid var(--line);border-radius:var(--r);padding:15px 18px;transition:.2s}
+.clink:hover{border-color:var(--signal);background:rgba(46,211,240,.06);transform:translateX(4px)}
+.clink .li{width:40px;height:40px;flex-shrink:0;border-radius:10px;display:grid;place-items:center;
+  background:rgba(255,255,255,.05);font-size:1.05rem}
+.clink .ll{font-family:var(--font-mono);font-size:.7rem;color:var(--muted)}
+.clink .lv{font-size:.9rem;font-weight:500;color:var(--text-soft)}
+
+/* ============================================================= */
+/*  12. FOOTER                                                 */
+/* ============================================================= */
+footer{background:var(--bg);border-top:1px solid var(--line-soft);
+  padding:30px 26px;text-align:center}
+footer p{font-family:var(--font-mono);font-size:.78rem;color:var(--muted)}
+footer b{color:var(--signal)}
+
+/* ============================================================= */
+/*  13. ANIMATIONS D'APPARITION                                */
+/* ============================================================= */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+
+/* ============================================================= */
+/*  14. RESPONSIVE                                             */
+/* ============================================================= */
+@media(max-width:900px){
+  .nav-links{display:none}
+  .burger{display:flex}
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .console{order:-1}
+  .telemetry{grid-template-columns:repeat(2,1fr)}
+  .about-grid{grid-template-columns:1fr}
+  section{padding:72px 0}
+}
+@media(max-width:560px){
+  .nav-in{padding:0 16px}
+  .nav-tools{gap:8px}
+  .cta-nav{display:none}
+}
+@media(max-width:480px){
+  .telemetry{grid-template-columns:repeat(2,1fr)}
+  .hero-tag{font-size:1rem}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- ════════════ NAVIGATION ════════════ -->
+<nav>
+  <div class="nav-in">
+    <a href="#hero" class="brand"><span class="dot"></span>Evrard&nbsp;<b>DEDO</b></a>
+    <div class="nav-links">
+      <a href="#about" data-i18n="nav-profil">Profil</a>
+      <a href="#skills" data-i18n="nav-competences">Compétences</a>
+      <a href="#xp" data-i18n="nav-experiences">Expériences</a>
+      <a href="#edu" data-i18n="nav-formation">Formation</a>
+      <a href="#certs" data-i18n="nav-certifications">Certifications</a>
+    </div>
+    <div class="nav-tools">
+      <button class="toggle" id="langBtn" aria-label="Change language" title="Français / English" data-i18n-attr-title="lang-btn-title">EN</button>
+      <button class="toggle" id="themeBtn" aria-label="Changer de thème" title="Thème clair / sombre">◐</button>
+      <a href="#contact" class="cta-nav" data-i18n="nav-cta">Me contacter</a>
+      <div class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+<div id="mobnav">
+  <a href="#about" data-i18n="nav-profil">Profil</a>
+  <a href="#skills" data-i18n="nav-competences">Compétences</a>
+  <a href="#xp" data-i18n="nav-experiences">Expériences</a>
+  <a href="#edu" data-i18n="nav-formation">Formation</a>
+  <a href="#certs" data-i18n="nav-certifications">Certifications</a>
+  <a href="#contact" data-i18n="nav-contact">Contact</a>
+</div>
+
+<!-- ════════════ HÉRO ════════════ -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+
+      <!-- Colonne texte -->
+      <div>
+        <div class="status" data-i18n="hero-status"><span class="pulse"></span>En alternance · Conseil Départemental de la Haute-Savoie</div>
+        <h1 class="hero-name">Evrard <em>DEDO</em></h1>
+        <p class="hero-role" data-i18n="hero-role">// Digital Project Manager · <span>Systèmes d'Information</span> · Innovation Numérique</p>
+        <p class="hero-tag" data-i18n="hero-tag">
+          Futur expert en management digital, je relie l'opérationnel technique et la vision projet.
+          Trois ans à superviser des réseaux 4G/5G chez Huawei, une formation Master en Systèmes
+          d'Information à l'IAE Savoie Mont Blanc, et l'ambition de piloter des projets numériques à fort impact.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary" data-i18n="hero-cta-contact">✦ Me contacter</a>
+          <a href="https://linkedin.com/in/evrard-dedo" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
+        </div>
+        <div class="telemetry">
+          <div class="tile"><div class="v">3+</div><div class="l" data-i18n="tile-1">ans · Huawei Technologies</div></div>
+          <div class="tile"><div class="v">2×</div><div class="l" data-i18n="tile-2">bourses Erasmus+</div></div>
+          <div class="tile"><div class="v">20+</div><div class="l" data-i18n="tile-3">agents formés</div></div>
+          <div class="tile"><div class="v">5+</div><div class="l" data-i18n="tile-4">projets déployés</div></div>
+        </div>
+      </div>
+
+      <!-- Colonne console réseau -->
+      <div class="console">
+        <div class="console-bar">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div class="dots"><i></i><i></i><i></i></div>
+            <span class="label">competence-map.live</span>
+          </div>
+          <span class="clock" id="clock">--:--:--</span>
+        </div>
+        <div class="console-body">
+          <!-- Réseau de compétences : modifie les <text> pour renommer les noeuds -->
+          <svg class="netsvg" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg" role="img"
+               aria-label="Carte des domaines de compétences d'Evrard DEDO">
+            <defs>
+              <radialGradient id="coreGrad" cx="50%" cy="40%" r="70%">
+                <stop offset="0%" stop-color="#7DEAFF"/>
+                <stop offset="55%" stop-color="#2ED3F0"/>
+                <stop offset="100%" stop-color="#4F8DFF"/>
+              </radialGradient>
+            </defs>
+
+            <!-- ARÊTES de base (mesh) -->
+            <g>
+              <line class="edge" x1="240" y1="240" x2="240" y2="90"/>
+              <line class="edge" x1="240" y1="240" x2="370" y2="165"/>
+              <line class="edge" x1="240" y1="240" x2="370" y2="315"/>
+              <line class="edge" x1="240" y1="240" x2="240" y2="390"/>
+              <line class="edge" x1="240" y1="240" x2="110" y2="315"/>
+              <line class="edge" x1="240" y1="240" x2="110" y2="165"/>
+              <line class="edge" x1="240" y1="90"  x2="370" y2="165"/>
+              <line class="edge" x1="370" y1="165" x2="370" y2="315"/>
+              <line class="edge" x1="370" y1="315" x2="240" y2="390"/>
+              <line class="edge" x1="240" y1="390" x2="110" y2="315"/>
+              <line class="edge" x1="110" y1="315" x2="110" y2="165"/>
+              <line class="edge" x1="110" y1="165" x2="240" y2="90"/>
+            </g>
+            <!-- ARÊTES animées (signal qui circule) -->
+            <g>
+              <line class="flow" x1="240" y1="240" x2="240" y2="90"  style="animation-duration:2.4s"/>
+              <line class="flow" x1="240" y1="240" x2="370" y2="165" style="animation-duration:3.1s"/>
+              <line class="flow" x1="240" y1="240" x2="370" y2="315" style="animation-duration:2.7s"/>
+              <line class="flow" x1="240" y1="240" x2="240" y2="390" style="animation-duration:3.4s"/>
+              <line class="flow" x1="240" y1="240" x2="110" y2="315" style="animation-duration:2.9s"/>
+              <line class="flow" x1="240" y1="240" x2="110" y2="165" style="animation-duration:3.2s"/>
+            </g>
+
+            <!-- NOEUDS périphériques -->
+            <g class="node"><circle cx="240" cy="90" r="9"/><circle class="ping" cx="240" cy="90" r="9" style="animation-delay:.2s"/><text x="240" y="68" text-anchor="middle" data-i18n="svg-node-1">Gestion de Projet</text></g>
+            <g class="node"><circle cx="370" cy="165" r="9"/><text x="386" y="160" text-anchor="start" data-i18n="svg-node-2">Réseaux 4G/5G</text></g>
+            <g class="node"><circle cx="370" cy="315" r="9"/><circle class="ping" cx="370" cy="315" r="9" style="animation-delay:1.1s"/><text x="386" y="320" text-anchor="start" data-i18n="svg-node-3">Développement</text></g>
+            <g class="node"><circle cx="240" cy="390" r="9"/><text x="240" y="416" text-anchor="middle" data-i18n="svg-node-4">Data &amp; IA</text></g>
+            <g class="node"><circle cx="110" cy="315" r="9"/><text x="94" y="320" text-anchor="end" data-i18n="svg-node-5">Management</text></g>
+            <g class="node"><circle cx="110" cy="165" r="9"/><circle class="ping" cx="110" cy="165" r="9" style="animation-delay:1.8s"/><text x="94" y="160" text-anchor="end" data-i18n="svg-node-6">Interculturel</text></g>
+
+            <!-- NOEUD central -->
+            <g class="node core">
+              <circle class="ping" cx="240" cy="240" r="26"/>
+              <circle cx="240" cy="240" r="26"/>
+              <text class="core-t" x="240" y="247" text-anchor="middle">ED</text>
+            </g>
+          </svg>
+        </div>
+        <div class="console-foot">
+          <span data-i18n="console-status">status : <b>● opérationnel</b></span>
+          <span>Evrard DEDO </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ À PROPOS ════════════ -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-txt reveal">
+        <div class="eyebrow" data-i18n="about-eyebrow">01 — Profil</div>
+        <h2 class="s-title" data-i18n="about-title">Un connecteur entre la technique et le management</h2>
+        <p data-i18n="about-p1">
+          Étudiant en <strong>Master 1 Systèmes d'Information et Innovation Numérique</strong> à l'IAE Savoie
+          Mont Blanc (Annecy), je réalise mon <strong>alternance de 12 mois</strong> au sein du Conseil
+          Départemental de la Haute-Savoie, avant d'intégrer le Master 2 dès la rentrée 2026-2027 et de me
+          perfectionner vers le métier de Digital Project Manager.
+        </p>
+        <p data-i18n="about-p2">
+          Mon parcours combine <strong>trois ans d'expérience opérationnelle</strong> chez Huawei Technologies
+          — supervision de performance réseau LTE 4G/5G, maintien en condition opérationnelle (MCO), gestion
+          de stocks et coordination fournisseurs — un <strong>stage à la DSI du Département de la Haute-Savoie</strong>
+          (mars–juin 2026), et une solide culture managériale forgée par deux <strong>bourses Erasmus+</strong>.
+        </p>
+        <p data-i18n="about-p3">
+          Ce profil hybride me permet d'articuler les enjeux métier et les contraintes techniques, avec une
+          vraie rigueur de gestion de projet (Agile / Scrum) et une aisance interculturelle qui nourrit
+          l'adaptabilité.
+        </p>
+      </div>
+
+      <!-- Carte dualité tech ⇄ management -->
+      <div class="duality reveal">
+        <div class="duality-head"><span>profil-systeme</span><span>v.2026</span></div>
+        <div class="dual-row">
+          <div class="dual-side tech"><span class="t" data-i18n="dual-1-t">Réseaux & SI</span><span class="d" data-i18n="dual-1-d">Huawei · supervision 4G/5G</span></div>
+          <div class="dual-link"></div>
+          <div class="dual-side mgmt"><span class="t" data-i18n="dual-2-t">Gestion de projet</span><span class="d" data-i18n="dual-2-d">Master pro · Agile</span></div>
+        </div>
+        <div class="dual-row">
+          <div class="dual-side tech"><span class="t" data-i18n="dual-3-t">Développement</span><span class="d">Full-Stack · EPITECH</span></div>
+          <div class="dual-link"></div>
+          <div class="dual-side mgmt"><span class="t" data-i18n="dual-4-t">Leadership</span><span class="d" data-i18n="dual-4-d">Clubs · NBA Combine</span></div>
+        </div>
+        <div class="dual-row">
+          <div class="dual-side tech"><span class="t" data-i18n="dual-5-t">Data & IA</span><span class="d" data-i18n="dual-5-d">Python · Fondation Vallet</span></div>
+          <div class="dual-link"></div>
+          <div class="dual-side mgmt"><span class="t" data-i18n="dual-6-t">Interculturel</span><span class="d" data-i18n="dual-6-d">Erasmus+ · 3 pays</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ COMPÉTENCES ════════════ -->
+<section id="skills">
+  <div class="wrap">
+    <div class="eyebrow reveal" data-i18n="skills-eyebrow">02 — Compétences</div>
+    <h2 class="s-title reveal" data-i18n="skills-title">Niveau de maîtrise par domaine</h2>
+    <p class="s-sub reveal" data-i18n="skills-sub">Intensité de signal calibrée sur la profondeur d'expérience réelle — clin d'œil à mon univers télécom.</p>
+
+    <div class="skills-grid">
+      <!-- Panneau 1 -->
+      <div class="panel reveal">
+        <div class="panel-head">
+          <h3><span class="ic">📊</span><span data-i18n="panel-1-h3">Cœur de métier</span></h3>
+          <span class="tag" data-i18n="panel-tag">signal · 5 niveaux</span>
+        </div>
+        <div class="panel-body">
+          <div class="sig-row">
+            <div class="sig-name" data-i18n="sig-1">Gestion de projet<small>Agile / Scrum · cahier des charges · KPI</small></div>
+            <div class="bars" data-level="4"><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="sig-row">
+            <div class="sig-name" data-i18n="sig-2">Réseaux & Télécom 4G/5G<small>RAN · MCO · supervision · obsolescence</small></div>
+            <div class="bars" data-level="3"><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="sig-row">
+            <div class="sig-name" data-i18n="sig-3">Management & Leadership<small>coordination d'équipes · formation</small></div>
+            <div class="bars" data-level="4"><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panneau 2 -->
+      <div class="panel reveal">
+        <div class="panel-head">
+          <h3><span class="ic">⚙️</span><span data-i18n="panel-2-h3">Technique & data</span></h3>
+          <span class="tag" data-i18n="panel-tag">signal · 5 niveaux</span>
+        </div>
+        <div class="panel-body">
+          <div class="sig-row">
+            <div class="sig-name" data-i18n="sig-4">Développement web Full-Stack<small>React · Vue · Node · Laravel</small></div>
+            <div class="bars" data-level="3"><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="sig-row">
+            <div class="sig-name" data-i18n="sig-5">Data & Intelligence Artificielle<small>Python · Pandas · analyse de données</small></div>
+            <div class="bars" data-level="2"><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div class="sig-row">
+            <div class="sig-name" data-i18n="sig-6">Communication interculturelle<small>3 langues · environnement international</small></div>
+            <div class="bars" data-level="5"><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stack technique -->
+    <div class="stack reveal">
+      <div class="stack-grid">
+        <div class="stack-col">
+          <h4 data-i18n="stack-h-1">Langages</h4>
+          <div class="chips">
+            <span class="chip">Python</span><span class="chip">JavaScript</span><span class="chip">PHP</span>
+            <span class="chip">R</span><span class="chip">HTML5</span><span class="chip">CSS</span><span class="chip">SQL</span>
+          </div>
+        </div>
+        <div class="stack-col">
+          <h4 data-i18n="stack-h-2">Frameworks</h4>
+          <div class="chips">
+            <span class="chip">React</span><span class="chip">Vue.js</span><span class="chip">Node.js</span>
+            <span class="chip">NestJS</span><span class="chip">Laravel</span><span class="chip">Next.js</span><span class="chip">Tailwind</span>
+          </div>
+        </div>
+        <div class="stack-col">
+          <h4 data-i18n="stack-h-3">Data & BDD</h4>
+          <div class="chips">
+            <span class="chip">MySQL</span><span class="chip">MongoDB</span><span class="chip">Pandas</span><span class="chip">API REST</span>
+          </div>
+        </div>
+        <div class="stack-col">
+          <h4 data-i18n="stack-h-4">DevOps & outils</h4>
+          <div class="chips">
+            <span class="chip">Docker</span><span class="chip">Git</span><span class="chip">Linux</span>
+            <span class="chip">Postman</span><span class="chip">Figma</span><span class="chip">VS Code</span>
+          </div>
+        </div>
+        <div class="stack-col">
+          <h4 data-i18n="stack-h-5">Réseaux</h4>
+          <div class="chips">
+            <span class="chip">LTE 4G/5G</span><span class="chip">Cisco</span><span class="chip">NetEco</span><span class="chip">Supervision RAN</span>
+          </div>
+        </div>
+        <div class="stack-col">
+          <h4 data-i18n="stack-h-6">Gestion de projet</h4>
+          <div class="chips">
+            <span class="chip">Agile</span><span class="chip">Scrum</span><span class="chip">Trello</span>
+            <span class="chip">MS Teams</span><span class="chip">Draw.io</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ EXPÉRIENCES ════════════ -->
+<section id="xp">
+  <div class="wrap">
+    <div class="eyebrow reveal" data-i18n="xp-eyebrow">03 — Parcours</div>
+    <h2 class="s-title reveal" data-i18n="xp-title">Journal d'expériences</h2>
+    <p class="s-sub reveal" data-i18n="xp-sub">Des missions à responsabilités réelles, dans des contextes exigeants et variés.</p>
+
+    <div class="log">
+
+      <div class="entry key reveal">
+        <div class="entry-top">
+          <span class="ts">2026.09 → 2027.09</span>
+          <span class="badge-key" data-i18n="badge-key">Expérience clé</span>
+        </div>
+        <h3 data-i18n="xp-0-h3">Assistant Chef de Projet — Service téléalarme</h3>
+        <div class="org">Conseil Départemental de la Haute-Savoie · Annecy</div>
+        <ul data-i18n="xp-0-ul">
+          <li>Mise en place d'un logiciel de planification des interventions des agents du service aux domiciles des personnes</li>
+          <li>Mise en place d'une GED dans le cadre d'un projet de dématérialisation des documents des usagers</li>
+          <li>Participation au déploiement des solutions numériques du service</li>
+          <li>Participation à l'évaluation de systèmes innovants des domaines techniques (Silver économie et objets connectés)</li>
+          <li>Participation à l'élaboration des modes de sélections et de tests des matériels et solutions innovants</li>
+          <li>Réalisation des tests et des intégrations aux systèmes informatiques et techniques existants</li>
+          <li>Élaboration des modes d'installations et de paramétrages en lien directs avec les besoins exprimés des usagers</li>
+        </ul>
+        <div class="entry-tags" data-i18n="xp-0-tags"><span class="xtag">Gestion de projet</span><span class="xtag">Silver économie</span><span class="xtag">GED</span><span class="xtag">IoT</span></div>
+      </div>
+
+      <div class="entry key reveal">
+        <div class="entry-top">
+          <span class="ts">2026.03 → 2026.06</span>
+          <span class="badge-key" data-i18n="badge-key">Expérience clé</span>
+        </div>
+        <h3 data-i18n="xp-1-h3">Stagiaire DSI — Service Production</h3>
+        <div class="org">Département de la Haute-Savoie · Annecy, France</div>
+        <ul data-i18n="xp-1-ul">
+          <li>Développement d'une application de langue régionale (maquette UX/UI & ergonomie)</li>
+          <li>Rédaction des spécifications fonctionnelles — cahier des charges</li>
+          <li>Participation active au déploiement et à la mise en production</li>
+        </ul>
+        <div class="entry-tags" data-i18n="xp-1-tags"><span class="xtag">Gestion de projet</span><span class="xtag">UX/UI</span><span class="xtag">Déploiement</span></div>
+      </div>
+
+      <div class="entry key reveal">
+        <div class="entry-top">
+          <span class="ts">2022.10 → 2025.07</span>
+          <span class="badge-key" data-i18n="badge-key">Expérience clé</span>
+        </div>
+        <h3 data-i18n="xp-2-h3">Back Office Wireless Engineer</h3>
+        <div class="org">Huawei Technologies · Celtiis Bénin (SBIN)</div>
+        <ul data-i18n="xp-2-ul">
+          <li>Supervision et optimisation des performances réseau LTE 4G/5G (RAN)</li>
+          <li>Maintien en condition opérationnelle : BTS / BSC / RNC, certificats, inventaire matériel</li>
+          <li>Gestion des flux de matériels en dépôt (LIFO / FIFO) & coordination fournisseurs (SLA)</li>
+          <li>Analyse d'incidents (énergie, transmission, configuration) et actions curatives</li>
+          <li>Formation de 20 agents terrain (FME / Rigger) et de l'équipe Front Office</li>
+          <li>Reporting technique quotidien via NetEco, OWS, PRS, MAE</li>
+        </ul>
+        <div class="entry-tags" data-i18n="xp-2-tags"><span class="xtag">Télécom 4G/5G</span><span class="xtag">MCO</span><span class="xtag">KPI / Reporting</span><span class="xtag">Formation</span></div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-top"><span class="ts">2023.04 → 2023.07</span></div>
+        <h3 data-i18n="xp-3-h3">Chef de projet — Solution Fintech P2P</h3>
+        <div class="org">Formation TITA · MTN Bénin</div>
+        <ul data-i18n="xp-3-ul">
+          <li>Pilotage de solutions peer-to-peer (EDUC-PAY, TITA API, OWO Change) pour l'inclusion financière</li>
+          <li>Coordination des équipes et des livrables en contexte de formation intensive</li>
+        </ul>
+        <div class="entry-tags" data-i18n="xp-3-tags"><span class="xtag">Fintech</span><span class="xtag">Conduite de projet</span></div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-top"><span class="ts">2022.07 → 2022.10</span></div>
+        <h3 data-i18n="xp-4-h3">Développeur Web Front-End</h3>
+        <div class="org">OPEN SI · Bénin</div>
+        <ul data-i18n="xp-4-ul">
+          <li>Développement front-end de solutions médicales (GOMEDICAL), assurance (SUNU) et fintech (KKpay)</li>
+          <li>Participation aux sprints hebdomadaires et propositions d'amélioration UX</li>
+        </ul>
+        <div class="entry-tags" data-i18n="xp-4-tags"><span class="xtag">Front-End</span><span class="xtag">Agile</span></div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-top"><span class="ts">2020 → présent</span></div>
+        <h3 data-i18n="xp-5-h3">Fondateur & Manager</h3>
+        <div class="org">LEADERS English Club of Accra · Ghana</div>
+        <ul data-i18n="xp-5-ul">
+          <li>Création, structuration et animation d'un club d'anglais actif depuis plus de 5 ans</li>
+          <li>Coordination d'un comité bénévole international, sessions hybrides présentiel / en ligne</li>
+        </ul>
+        <div class="entry-tags" data-i18n="xp-5-tags"><span class="xtag">Leadership</span><span class="xtag">Animation</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FORMATION ════════════ -->
+<section id="edu">
+  <div class="wrap">
+    <div class="eyebrow reveal" data-i18n="edu-eyebrow">04 — Formation</div>
+    <h2 class="s-title reveal" data-i18n="edu-title">Parcours académique</h2>
+    <p class="s-sub reveal" data-i18n="edu-sub">Une formation pluridisciplinaire articulant gestion, informatique et innovation.</p>
+
+    <div class="edu-grid">
+      <div class="edu-card flag reveal">
+        <div class="edu-when" data-i18n="edu-when-1">2025 — en cours</div>
+        <div class="edu-deg" data-i18n="edu-deg-1">Master 1 — Systèmes d'Information & Innovation Numérique (SIIN)</div>
+        <div class="edu-school">IAE Savoie Mont Blanc · Annecy</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-when">2021 — 2023</div>
+        <div class="edu-deg" data-i18n="edu-deg-2">Master Pro — Gestion & Administration des Entreprises · opt. Entrepreneuriat & Gestion de Projet</div>
+        <div class="edu-school">École Supérieure de Management · Bénin</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-when">2022</div>
+        <div class="edu-deg" data-i18n="edu-deg-3">Certificat Full-Stack Web Development</div>
+        <div class="edu-school">EPITECH · Coding Academy</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-when">2023 — 2024</div>
+        <div class="edu-deg" data-i18n="edu-deg-4">Intelligence Artificielle & Data Analysis (Python)</div>
+        <div class="edu-school">Fondation Vallet · Bénin</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-when">2023 — 2025</div>
+        <div class="edu-deg" data-i18n="edu-deg-5">Bases des réseaux informatiques</div>
+        <div class="edu-school">Cisco Networking Academy</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-when">2017 — 2021</div>
+        <div class="edu-deg" data-i18n="edu-deg-6">Licence — Management Organisationnel · opt. Gestion Financière & Comptable</div>
+        <div class="edu-school">ENEAM · Bénin</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ CERTIFICATIONS ════════════ -->
+<section id="certs">
+  <div class="wrap">
+    <div class="eyebrow reveal" data-i18n="certs-eyebrow">05 — Certifications</div>
+    <h2 class="s-title reveal" data-i18n="certs-title">Titres & accréditations</h2>
+    <p class="s-sub reveal" data-i18n="certs-sub">Un engagement continu dans l'apprentissage et la montée en compétences.</p>
+
+    <div class="cert-grid">
+      <div class="cert reveal"><div class="ci">🌍</div><div><div class="ct" data-i18n="cert-1-t">Bourse Erasmus+ — Bridges by Mentors</div><div class="co" data-i18n="cert-1-o">Pays-Bas · 2026</div></div></div>
+      <div class="cert reveal"><div class="ci">🔒</div><div><div class="ct" data-i18n="cert-2-t">Atelier RGPD</div><div class="co">CNIL · 2026</div></div></div>
+      <div class="cert reveal"><div class="ci">🌍</div><div><div class="ct" data-i18n="cert-3-t">Bourse Erasmus+ — Transnational Meeting</div><div class="co" data-i18n="cert-3-o">Bulgarie · 2025</div></div></div>
+      <div class="cert reveal"><div class="ci">🧠</div><div><div class="ct">Problem Solving & Digital Adaptability</div><div class="co">McKinsey Academy · 2025</div></div></div>
+      <div class="cert reveal"><div class="ci">📊</div><div><div class="ct" data-i18n="cert-5-t">Gouvernance d'entreprises publiques</div><div class="co">AFD · 2025</div></div></div>
+      <div class="cert reveal"><div class="ci">👥</div><div><div class="ct" data-i18n="cert-6-t">Former des Adultes</div><div class="co">AFD · 2024</div></div></div>
+      <div class="cert reveal"><div class="ci">🗂️</div><div><div class="ct" data-i18n="cert-7-t">Suivi & Évaluation de projet</div><div class="co">AFD · 2024</div></div></div>
+      <div class="cert reveal"><div class="ci">📡</div><div><div class="ct" data-i18n="cert-8-t">Bases des réseaux</div><div class="co">Cisco · 2024</div></div></div>
+      <div class="cert reveal"><div class="ci">🛡️</div><div><div class="ct">Cyber Security for Service Work</div><div class="co">Huawei · 2022</div></div></div>
+      <div class="cert reveal"><div class="ci">📶</div><div><div class="ct">Network Operation Qualification</div><div class="co">Huawei · 2022</div></div></div>
+      <div class="cert reveal"><div class="ci">💻</div><div><div class="ct" data-i18n="cert-11-t">Concepteur Développeur Web & Mobile</div><div class="co">EPITECH · 2023</div></div></div>
+      <div class="cert reveal"><div class="ci">🇬🇧</div><div><div class="ct" data-i18n="cert-12-t">APTIS B2 — Anglais professionnel</div><div class="co">British Council · 2022</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ CONTACT ════════════ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="eyebrow" data-i18n="contact-eyebrow">06 — Contact</div>
+        <h2 class="s-title" data-i18n="contact-title">Construisons quelque chose ensemble</h2>
+        <p class="s-sub" style="color:var(--text-soft)" data-i18n="contact-sub">Une question, un projet, une opportunité de collaboration ? Je réponds rapidement.</p>
+        <div class="clinks">
+          <a href="mailto:evrard.dedo@outlook.fr" class="clink">
+            <div class="li">✉</div><div><div class="ll" data-i18n="contact-label-email">email</div><div class="lv">evrard.dedo@outlook.fr</div></div>
+          </a>
+          <a href="tel:+33780236703" class="clink">
+            <div class="li">📞</div><div><div class="ll" data-i18n="contact-label-phone">téléphone</div><div class="lv">(+33) 780 236 703</div></div>
+          </a>
+          <a href="https://linkedin.com/in/evrard-dedo" target="_blank" rel="noopener" class="clink">
+            <div class="li">💼</div><div><div class="ll">linkedin</div><div class="lv">linkedin.com/in/evrard-dedo</div></div>
+          </a>
+          <a href="https://my.assessfirst.com/public/profile/qdcrc6ct-evrard-dedo?lang=fr-FR" target="_blank" rel="noopener" class="clink">
+            <div class="li">🧠</div><div><div class="ll" data-i18n="contact-label-personality">personnalité</div><div class="lv" data-i18n="contact-assessfirst">Profil AssessFirst ↗</div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer>
+  <p data-i18n="footer-text">© 2026 <b>Evrard DEDO</b> · Annecy, Haute-Savoie · portfolio conçu en HTML / CSS / JS</p>
+</footer>
+
+<!-- ════════════ SCRIPTS ════════════ -->
+<script>
+/* ---- Menu mobile ---- */
+const burger=document.getElementById('burger'),mob=document.getElementById('mobnav');
+burger.addEventListener('click',()=>{mob.classList.toggle('open');burger.classList.toggle('x')});
+mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mob.classList.remove('open')));
+
+/* ---- Thème clair / sombre ---- */
+/* (Pour mémoriser le choix sur TON site hébergé, décommente les 2 lignes localStorage) */
+const root=document.documentElement, tBtn=document.getElementById('themeBtn');
+// const saved=localStorage.getItem('theme'); if(saved) root.setAttribute('data-theme',saved);
+tBtn.addEventListener('click',()=>{
+  const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+  root.setAttribute('data-theme',next);
+  // localStorage.setItem('theme',next);
+});
+
+/* ---- Horloge live de la console ---- */
+const clk=document.getElementById('clock');
+function tick(){const d=new Date();
+  clk.textContent=[d.getHours(),d.getMinutes(),d.getSeconds()]
+    .map(n=>String(n).padStart(2,'0')).join(':');}
+tick();setInterval(tick,1000);
+
+/* ---- Barre de progression ---- */
+const bar=document.getElementById('progress');
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement.scrollHeight-innerHeight;
+  bar.style.width=(scrollY/h*100)+'%';
+});
+
+/* ---- Apparition au scroll ---- */
+const io=new IntersectionObserver((es)=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+}),{threshold:.12,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---- Nav active (scrollspy) ---- */
+const secs=[...document.querySelectorAll('section[id]')];
+const lnk=[...document.querySelectorAll('.nav-links a')];
+window.addEventListener('scroll',()=>{
+  let cur='';secs.forEach(s=>{if(scrollY>=s.offsetTop-90)cur=s.id;});
+  lnk.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+});
+
+/* ---- Traduction FR / EN ---- */
+const i18n = {
+  'nav-profil':`Profile`,
+  'nav-competences':`Skills`,
+  'nav-experiences':`Experience`,
+  'nav-formation':`Education`,
+  'nav-certifications':`Certifications`,
+  'nav-cta':`Contact me`,
+  'nav-contact':`Contact`,
+  'lang-btn-title':`Français / English`,
+  'hero-status':`<span class="pulse"></span>Work-study · Conseil Départemental de la Haute-Savoie`,
+  'hero-role':`// Digital Project Manager · <span>Information Systems</span> · Digital Innovation`,
+  'hero-tag':`
+          Future digital management expert, bridging technical operations and project vision.
+          Three years supervising 4G/5G networks at Huawei, a Master's in Information Systems
+          at IAE Savoie Mont Blanc, and the ambition to lead high-impact digital projects.
+        `,
+  'hero-cta-contact':`✦ Contact me`,
+  'tile-1':`yrs · Huawei Technologies`,
+  'tile-2':`Erasmus+ grants`,
+  'tile-3':`agents trained`,
+  'tile-4':`projects deployed`,
+  'svg-node-1':`Project Management`,
+  'svg-node-2':`4G/5G Networks`,
+  'svg-node-3':`Development`,
+  'svg-node-4':`Data & AI`,
+  'svg-node-5':`Management`,
+  'svg-node-6':`Intercultural`,
+  'console-status':`status : <b>● operational</b>`,
+  'about-eyebrow':`01 — Profile`,
+  'about-title':`A connector between technical expertise and management`,
+  'about-p1':`
+          Currently studying for a <strong>Master's 1 in Information Systems & Digital Innovation</strong> at IAE Savoie
+          Mont Blanc (Annecy), I am completing a <strong>12-month work-study placement</strong> at the Conseil
+          Départemental de la Haute-Savoie, before joining the Master's 2 programme from the 2026-2027 intake
+          and growing into the role of Digital Project Manager.
+        `,
+  'about-p2':`
+          My background combines <strong>three years of hands-on experience</strong> at Huawei Technologies
+          — supervising LTE 4G/5G network performance, operational maintenance (MCO), stock management
+          and supplier coordination — an <strong>internship with the IT Department of Haute-Savoie</strong>
+          (March–June 2026), and a solid managerial culture built through two <strong>Erasmus+ grants</strong>.
+        `,
+  'about-p3':`
+          This hybrid profile lets me connect business needs with technical constraints, backed by real
+          project management rigour (Agile / Scrum) and an intercultural ease that fuels adaptability.
+        `,
+  'dual-1-t':`Networks & IS`,
+  'dual-1-d':`Huawei · 4G/5G supervision`,
+  'dual-2-t':`Project Management`,
+  'dual-2-d':`Professional Master's · Agile`,
+  'dual-3-t':`Development`,
+  'dual-4-t':`Leadership`,
+  'dual-4-d':`Clubs · NBA Combine`,
+  'dual-5-t':`Data & AI`,
+  'dual-5-d':`Python · Fondation Vallet`,
+  'dual-6-t':`Intercultural`,
+  'dual-6-d':`Erasmus+ · 3 countries`,
+  'skills-eyebrow':`02 — Skills`,
+  'skills-title':`Proficiency level by domain`,
+  'skills-sub':`Signal intensity calibrated to real depth of experience — a nod to my telecom background.`,
+  'panel-1-h3':`Core expertise`,
+  'panel-tag':`signal · 5 levels`,
+  'panel-2-h3':`Technical & data`,
+  'sig-1':`Project Management<small>Agile / Scrum · specifications · KPIs</small>`,
+  'sig-2':`Networks & Telecom 4G/5G<small>RAN · MCO · monitoring · obsolescence</small>`,
+  'sig-3':`Management & Leadership<small>team coordination · training</small>`,
+  'sig-4':`Full-Stack Web Development<small>React · Vue · Node · Laravel</small>`,
+  'sig-5':`Data & Artificial Intelligence<small>Python · Pandas · data analysis</small>`,
+  'sig-6':`Intercultural communication<small>3 languages · international environment</small>`,
+  'stack-h-1':`Languages`,
+  'stack-h-2':`Frameworks`,
+  'stack-h-3':`Data & DB`,
+  'stack-h-4':`DevOps & Tools`,
+  'stack-h-5':`Networks`,
+  'stack-h-6':`Project Management`,
+  'xp-eyebrow':`03 — Journey`,
+  'xp-title':`Experience log`,
+  'xp-sub':`Real-responsibility missions, in demanding and varied contexts.`,
+  'badge-key':`Key experience`,
+  'xp-0-h3':`Assistant Project Manager — Emergency Call Service`,
+  'xp-0-ul':`
+          <li>Rolled out a scheduling software for home-visit interventions carried out by service agents</li>
+          <li>Implemented an EDM (electronic document management) system as part of a document digitisation project for service users</li>
+          <li>Took part in deploying the department's digital solutions</li>
+          <li>Contributed to evaluating innovative technical systems (Silver economy and connected devices)</li>
+          <li>Helped define selection and testing methods for innovative equipment and solutions</li>
+          <li>Carried out testing and integration with existing IT and technical systems</li>
+          <li>Defined installation and configuration procedures directly aligned with users' expressed needs</li>
+        `,
+  'xp-0-tags':`<span class="xtag">Project Management</span><span class="xtag">Silver Economy</span><span class="xtag">EDM</span><span class="xtag">IoT</span>`,
+  'xp-1-h3':`IT Department Intern — Production Unit`,
+  'xp-1-ul':`
+          <li>Developed a regional-language application (UX/UI mock-up & ergonomics)</li>
+          <li>Wrote functional specifications</li>
+          <li>Actively contributed to deployment and go-live</li>
+        `,
+  'xp-1-tags':`<span class="xtag">Project Management</span><span class="xtag">UX/UI</span><span class="xtag">Deployment</span>`,
+  'xp-2-h3':`Back Office Wireless Engineer`,
+  'xp-2-ul':`
+          <li>Supervised and optimised LTE 4G/5G (RAN) network performance</li>
+          <li>Maintained operational condition: BTS / BSC / RNC, certificates, equipment inventory</li>
+          <li>Managed warehouse material flows (LIFO / FIFO) & coordinated suppliers (SLA)</li>
+          <li>Analysed incidents (power, transmission, configuration) and led corrective actions</li>
+          <li>Trained 20 field agents (FME / Rigger) and the Front Office team</li>
+          <li>Delivered daily technical reporting via NetEco, OWS, PRS, MAE</li>
+        `,
+  'xp-2-tags':`<span class="xtag">4G/5G Telecom</span><span class="xtag">MCO</span><span class="xtag">KPI / Reporting</span><span class="xtag">Training</span>`,
+  'xp-3-h3':`Project Manager — P2P Fintech Solution`,
+  'xp-3-ul':`
+          <li>Led peer-to-peer solutions (EDUC-PAY, TITA API, OWO Change) for financial inclusion</li>
+          <li>Coordinated teams and deliverables in an intensive training context</li>
+        `,
+  'xp-3-tags':`<span class="xtag">Fintech</span><span class="xtag">Project Leadership</span>`,
+  'xp-4-h3':`Front-End Web Developer`,
+  'xp-4-ul':`
+          <li>Built front-end features for healthcare (GOMEDICAL), insurance (SUNU) and fintech (KKpay) solutions</li>
+          <li>Took part in weekly sprints and proposed UX improvements</li>
+        `,
+  'xp-4-tags':`<span class="xtag">Front-End</span><span class="xtag">Agile</span>`,
+  'xp-5-h3':`Founder & Manager`,
+  'xp-5-ul':`
+          <li>Created, structured and ran an English club active for over 5 years</li>
+          <li>Coordinated an international volunteer committee, with hybrid in-person / online sessions</li>
+        `,
+  'xp-5-tags':`<span class="xtag">Leadership</span><span class="xtag">Community</span>`,
+  'edu-eyebrow':`04 — Education`,
+  'edu-title':`Academic background`,
+  'edu-sub':`A multidisciplinary education combining management, IT and innovation.`,
+  'edu-when-1':`2025 — ongoing`,
+  'edu-deg-1':`Master's 1 — Information Systems & Digital Innovation (SIIN)`,
+  'edu-deg-2':`Professional Master's — Business Management & Administration · Entrepreneurship & Project Management track`,
+  'edu-deg-3':`Full-Stack Web Development Certificate`,
+  'edu-deg-4':`Artificial Intelligence & Data Analysis (Python)`,
+  'edu-deg-5':`Computer Networking Fundamentals`,
+  'edu-deg-6':`Bachelor's — Organisational Management · Financial & Accounting Management track`,
+  'certs-eyebrow':`05 — Certifications`,
+  'certs-title':`Titles & accreditations`,
+  'certs-sub':`An ongoing commitment to learning and upskilling.`,
+  'cert-1-t':`Erasmus+ Grant — Bridges by Mentors`,
+  'cert-1-o':`Netherlands · 2026`,
+  'cert-2-t':`GDPR Workshop`,
+  'cert-3-t':`Erasmus+ Grant — Transnational Meeting`,
+  'cert-3-o':`Bulgaria · 2025`,
+  'cert-5-t':`Public Enterprise Governance`,
+  'cert-6-t':`Training Adult Learners`,
+  'cert-7-t':`Project Monitoring & Evaluation`,
+  'cert-8-t':`Networking Fundamentals`,
+  'cert-11-t':`Web & Mobile Developer/Designer`,
+  'cert-12-t':`APTIS B2 — Professional English`,
+  'contact-eyebrow':`06 — Contact`,
+  'contact-title':`Let's build something together`,
+  'contact-sub':`A question, a project, an opportunity to collaborate? I reply quickly.`,
+  'contact-label-email':`email`,
+  'contact-label-phone':`phone`,
+  'contact-label-personality':`personality`,
+  'contact-assessfirst':`AssessFirst Profile ↗`,
+  'footer-text':`© 2026 <b>Evrard DEDO</b> · Annecy, Haute-Savoie · portfolio built with HTML / CSS / JS`
+};
+
+const i18nEls=[...document.querySelectorAll('[data-i18n]')];
+i18nEls.forEach(el=>{ if(el.dataset.i18nFr===undefined) el.dataset.i18nFr = el.innerHTML; });
+
+const langBtn=document.getElementById('langBtn');
+let currentLang='fr';
+const pageTitles={
+  fr:"Evrard DEDO — Digital Project Manager · Systèmes d'Information",
+  en:"Evrard DEDO — Digital Project Manager · Information Systems"
+};
+const pageDescs={
+  fr:document.querySelector('meta[name="description"]')?.getAttribute('content'),
+  en:"Portfolio of Evrard DEDO — aspiring Digital Project Manager. Master's in Information Systems & Digital Innovation at IAE Savoie Mont Blanc. 3 years of telecom experience at Huawei, project management, web development and data."
+};
+
+function applyLang(lang){
+  currentLang=lang;
+  document.documentElement.setAttribute('lang',lang);
+  document.title = pageTitles[lang] || pageTitles.fr;
+  const metaDesc=document.querySelector('meta[name="description"]');
+  if(metaDesc && pageDescs[lang]) metaDesc.setAttribute('content', pageDescs[lang]);
+  i18nEls.forEach(el=>{
+    const key=el.getAttribute('data-i18n');
+    if(lang==='en' && i18n[key]!==undefined){ el.innerHTML = i18n[key]; }
+    else { el.innerHTML = el.dataset.i18nFr; }
+  });
+  langBtn.textContent = lang==='fr' ? 'EN' : 'FR';
+  langBtn.setAttribute('aria-label', lang==='fr' ? 'Switch to English' : 'Passer en français');
+}
+
+langBtn.addEventListener('click',()=>{
+  applyLang(currentLang==='fr' ? 'en' : 'fr');
+});
+</script>
+</body>
+</html>
